@@ -4,6 +4,8 @@ export type Visibility = 'great' | 'good' | 'ok' | 'poor';
 
 export type NonSensitiveDiaryEntry = Omit<DiaryEntry, 'comment'>;
 
+export type NonSensitivePatients = Omit<Patients, 'ssn'>;
+
 export interface DiaryEntry {
   id: number;
   date: string;
