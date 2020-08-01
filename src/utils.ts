@@ -1,4 +1,4 @@
-import { NewDiaryEntry, Weather, Visibility, NewPatientEntry } from './types';
+import { NewDiaryEntry, Weather, Visibility, NewPatientEntry, Gender } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -77,7 +77,7 @@ const toNewPatient = (object: any): NewPatientEntry => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ssn: parsePatientKey(object.ssn),
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    gender: parsePatientKey(object.gender),
+    gender: parseGender(object.gender),
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     occupation: parsePatientKey(object.occupation)
   };
@@ -92,6 +92,18 @@ const parsePatientKey = (patient: any): string => {
   }
 
   return patient;
+};
+
+const isGender = (param: any): param is Gender => {
+  return Object.values(Gender).includes(param);
+};
+
+const parseGender = (gender: any): Gender => {
+  if (!gender || !isGender(gender)) {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      throw new Error('Incorrect or missing gender: ' + gender);
+  }
+  return gender;
 };
 
 export default { toNewDiaryEntry, toNewPatient };

@@ -31,6 +31,11 @@ export interface Diagnoses {
   latin?: string;
 }
 
+export enum Gender {
+  Male = 'male',
+  Female = 'female'
+}
+
 export type NonSensitivePatients = Omit<Patients, 'ssn'>;
 
 export type NewPatientEntry = Omit<Patients, 'id'>;
@@ -40,6 +45,6 @@ export interface Patients {
   name: string;
   dateOfBirth: string;
   ssn: string;
-  gender: string;
+  gender: Gender;
   occupation: string;
 }
