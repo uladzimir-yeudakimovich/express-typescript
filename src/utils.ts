@@ -1,4 +1,4 @@
-import { NewDiaryEntry, Weather, Visibility } from './types';
+import { NewDiaryEntry, Weather, Visibility, NewPatientEntry } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -66,4 +66,32 @@ const parseVisibility = (visibility: any): Visibility => {
   return visibility;
 };
 
-export default toNewDiaryEntry;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const toNewPatient = (object: any): NewPatientEntry => {
+  const newPatient: NewPatientEntry = {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    name: parsePatientKey(object.name),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    dateOfBirth: parseDate(object.dateOfBirth),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    ssn: parsePatientKey(object.ssn),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    gender: parsePatientKey(object.gender),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    occupation: parsePatientKey(object.occupation)
+  };
+
+  return newPatient;
+};
+
+const parsePatientKey = (patient: any): string => {
+  if (!patient || !isString(patient)) {
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    throw new Error('Incorrect or missing comment: ' + patient);
+  }
+
+  return patient;
+};
+
+export default { toNewDiaryEntry, toNewPatient };
